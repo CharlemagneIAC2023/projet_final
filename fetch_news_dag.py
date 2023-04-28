@@ -1,9 +1,8 @@
+from fetch_news import fetch_news, save_articles_to_json
 from datetime import datetime, timedelta
-
 from airflow import DAG
-from airflow.operators.python_operator import PythonOperator
-
-from fetch_news_api import fetch_news, save_articles_to_json
+from airflow.operators.python import PythonOperator
+from fetch_news import fetch_news, extract_title_and_id, save_articles_to_sqlite
 
 default_args = {
     "owner": "airflow",
@@ -17,18 +16,21 @@ default_args = {
 dag = DAG(
     "fetch_news",
     default_args=default_args,
-    description="Fetch news articles using News API",
+    description="Fetch news articles and store them in SQLite",
     schedule_interval=timedelta(days=1),
-    start_date=datetime(2023, 5, 1),
+    start_date=datetime(2023, 4, 28),
     catchup=False,
 )
 
-def fetch_and_save_news():
+def fetch_and_store_news(**kwargs):
     articles = fetch_news()
-    save_articles_to_json(articles)
+    title_and_id_articles, _ = extract_title_and_id(articles)
+    db_url = "sqlite:///news_articles.db"  
+    save_articles_to_sqlite(title_and_id_articles, db_url)
 
-fetch_news_task = PythonOperator(
-    task_id="fetch_and_save_news",
-    python_callable=fetch_and_save_news,
+fetch_and_store_news_task = PythonOperator(
+    task_id="fetch_and_store_news",
+    python_callable=fetch_and_store_news,
+    provide_context=True,
     dag=dag,
 )
