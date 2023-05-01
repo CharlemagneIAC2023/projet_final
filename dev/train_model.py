@@ -17,7 +17,7 @@ class LinearRegressionModel(mlflow.pyfunc.PythonModel):
         return self.model.predict(model_input)
 
 
-mlflow.set_tracking_uri("/home/charlemagne/mlflow_experiments/test_new_experiment")
+mlflow.set_tracking_uri("/home/charlemagne/mlflow_experiments/")
 mlflow.set_experiment("WeatherPrediction")
 print("MLflow tracking URI:", mlflow.get_tracking_uri())
 
