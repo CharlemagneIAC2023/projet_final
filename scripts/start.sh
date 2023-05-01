@@ -43,14 +43,14 @@ echo ""
 echo "-> lancement serveur airflow en tache de fond"
 echo ""
 
-gnome-terminal -- bash -c "airflow webserver; exec bash"
+gnome-terminal -- bash -c "source carolus_ia_final/bin/activate && airflow webserver; exec bash"
 sleep 10
 
 echo ""
 echo "-> lancement scheduler airflow en tache de fond"
 echo ""
 
-gnome-terminal -- bash -c "airflow scheduler; exec bash"
+gnome-terminal -- bash -c "source carolus_ia_final/bin/activate && airflow scheduler; exec bash"
 sleep 10
 
 echo ""
@@ -60,13 +60,27 @@ echo ""
 cd dags/projet_final/dev && cp -rfv fetch_data_dag.py train_model.py ../../
 
 echo ""
-echo "-> lancement fetch_data_dag.py"
+echo "-> execution fetch_data_dag.py"
 echo ""
 
 python3 fetch_data_dag.py
 
 echo ""
-echo "-> lancement train_model.py"
+echo "-> execution train_model.py"
 echo ""
 
 python3 train_model.py
+
+echo ""
+echo "-> lancement ui mlflow, cliquer sur le lien pour ouvrir l'interface"
+echo ""
+
+gnome-terminal -- bash -c "source carolus_ia_final/bin/activate && mlflow ui --backend-store-uri file:///home/charlemagne/mlflow_experiments; exec bash" # insérer nouveau chemin si nouvel utilisateur 
+sleep 10
+
+echo ""
+echo "-> lancement fastapi"
+echo ""
+
+gnome-terminal -- bash -c "source carolus_ia_final/bin/activate && uvicorn app:app --reload --host 0.0.0.0 --port 8000 --log-level debug; exec bash"
+sleep 10

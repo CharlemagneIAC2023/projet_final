@@ -13,12 +13,12 @@ class LinearRegressionModel(mlflow.pyfunc.PythonModel):
     def load_context(self, context):
         self.model = LinearRegression()
     
-    def predict(self, context, model_input):
+    def predict(self, model_input):
         return self.model.predict(model_input)
 
 
 def train_model():
-    mlflow.set_tracking_uri("/home/charlemagne/mlflow_experiments/")
+    mlflow.set_tracking_uri("/home/charlemagne/mlflow_experiments/") # insérer nouveau chemin si nouvel utilisateur 
     mlflow.set_experiment("WeatherPrediction")
     print("MLflow tracking URI:", mlflow.get_tracking_uri())
 
