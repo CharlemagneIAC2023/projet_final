@@ -44,19 +44,20 @@ echo "-> lancement serveur airflow en tache de fond"
 echo ""
 
 gnome-terminal -- bash -c "airflow webserver; exec bash"
-
+sleep 10
 
 echo ""
 echo "-> lancement scheduler airflow en tache de fond"
 echo ""
 
 gnome-terminal -- bash -c "airflow scheduler; exec bash"
+sleep 10
 
 echo ""
 echo "-> déplacement des fichiers fetch_data_dag.py et train_model.py vers dossier dags de airflow"
 echo ""
 
-cp -rfv fetch_data_dag.py train_model.py ../../
+cd dags/projet_final/dev && cp -rfv fetch_data_dag.py train_model.py ../../
 
 echo ""
 echo "-> lancement fetch_data_dag.py"
