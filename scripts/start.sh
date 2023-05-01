@@ -53,13 +53,19 @@ echo ""
 gnome-terminal -- bash -c "airflow scheduler; exec bash"
 
 echo ""
+echo "-> déplacement des fichiers fetch_data_dag.py et train_model.py vers dossier dags de airflow"
+echo ""
+
+cp -rfv fetch_data_dag.py train_model.py ../../
+
+echo ""
 echo "-> lancement fetch_data_dag.py"
 echo ""
 
-python3 dags/projet_final/dev/fetch_data_dag.py
+python3 fetch_data_dag.py
 
 echo ""
 echo "-> lancement train_model.py"
 echo ""
 
-python3 dags/projet_final/dev/train_model.py
+python3 train_model.py

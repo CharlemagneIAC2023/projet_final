@@ -8,11 +8,6 @@ import pandas as pd
 from train_model import train_model
 
 
-def train_model():
-    import train_model
-    train_model.main()
-
-
 def fetch_data():
     print("Fetching data...")
     api_key = "60ea556105752c18a776cf70bb6754b0"
@@ -86,5 +81,6 @@ train_model_task = PythonOperator(
     python_callable=train_model,
     dag=dag,
 )
+
 
 fetch_data_task >> train_model_task
