@@ -5,10 +5,15 @@ import requests
 import json
 import sqlite3
 import pandas as pd
+from train_model import train_model
+
+
+def train_model():
+    import train_model
+    train_model.main()
 
 
 def fetch_data():
-
     print("Fetching data...")
     api_key = "60ea556105752c18a776cf70bb6754b0"
     lat = "43.384132"
@@ -76,4 +81,10 @@ fetch_data_task = PythonOperator(
     dag=dag,
 )
 
-fetch_data()
+train_model_task = PythonOperator(
+    task_id="train_model",
+    python_callable=train_model,
+    dag=dag,
+)
+
+fetch_data_task >> train_model_task
