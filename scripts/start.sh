@@ -79,8 +79,21 @@ gnome-terminal -- bash -c "mlflow ui --backend-store-uri file:///home/charlemagn
 sleep 10
 
 echo ""
-echo "-> lancement fastapi"
+echo "-> lancement FastAPI"
 echo ""
 
 gnome-terminal -- bash -c "uvicorn app:app --reload --host 0.0.0.0 --port 8000 --log-level debug; exec bash"
 sleep 10
+
+echo ""
+echo "-> execution app.py"
+echo ""
+
+python3 app.py
+
+echo ""
+echo "-> requête à l'API"
+echo ""
+
+curl -X POST "http://localhost:8000/predict" -H "Content-Type: application/json" -d '{"year": 2023, "month": 5, "day": 10, "humidity": 60}'
+echo""

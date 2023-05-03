@@ -10,8 +10,6 @@ import mlflow.pyfunc
 from mlflow.tracking import MlflowClient
 
 
-print("////////////////////////////////////////////// V7")
-
 class LinearRegressionModel(mlflow.pyfunc.PythonModel):
     def __init__(self, model):
         self.model = model
@@ -20,26 +18,6 @@ class LinearRegressionModel(mlflow.pyfunc.PythonModel):
         if len(model_input.shape) == 1:
             model_input = model_input.reshape(1, -1)
         return self.model.predict(model_input)
-
-
-# class LinearRegressionModel(mlflow.pyfunc.PythonModel):
-#     def __init__(self, model):
-#         self.model = model
-    
-#     def predict(self, model_input):
-#         if len(model_input.shape) == 1:
-#             model_input = model_input.reshape(1, -1)
-#         return self.model.predict(model_input)
-
-# class LinearRegressionModel(mlflow.pyfunc.PythonModel):
-# def __init__(self, model):
-#     self.model = model
-
-# def predict(self, model_input):
-#     if len(model_input.shape) == 1:
-#         model_input = model_input.reshape(1, -1)
-#     return self.model.predict(model_input)
-
 
 
 def train_model():
