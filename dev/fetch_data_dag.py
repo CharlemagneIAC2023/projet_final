@@ -65,7 +65,7 @@ dag = DAG(
     "fetch_data_dag",
     default_args=default_args,
     description="Récupérer les données météorologiques à chaque exécution",
-    schedule=timedelta(days=1),  
+    schedule_interval=timedelta(days=1),
     start_date=datetime(2023, 5, 1),
     catchup=False,
 )

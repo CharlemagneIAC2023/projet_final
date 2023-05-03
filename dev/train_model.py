@@ -7,14 +7,39 @@ import joblib
 import mlflow.sklearn
 import sklearn
 import mlflow.pyfunc
+from mlflow.tracking import MlflowClient
 
+
+print("////////////////////////////////////////////// V7")
 
 class LinearRegressionModel(mlflow.pyfunc.PythonModel):
-    def load_context(self, context):
-        self.model = LinearRegression()
+    def __init__(self, model):
+        self.model = model
     
-    def predict(self, model_input):
+    def predict(self, context=None, model_input=None):
+        if len(model_input.shape) == 1:
+            model_input = model_input.reshape(1, -1)
         return self.model.predict(model_input)
+
+
+# class LinearRegressionModel(mlflow.pyfunc.PythonModel):
+#     def __init__(self, model):
+#         self.model = model
+    
+#     def predict(self, model_input):
+#         if len(model_input.shape) == 1:
+#             model_input = model_input.reshape(1, -1)
+#         return self.model.predict(model_input)
+
+# class LinearRegressionModel(mlflow.pyfunc.PythonModel):
+# def __init__(self, model):
+#     self.model = model
+
+# def predict(self, model_input):
+#     if len(model_input.shape) == 1:
+#         model_input = model_input.reshape(1, -1)
+#     return self.model.predict(model_input)
+
 
 
 def train_model():
@@ -45,8 +70,7 @@ def train_model():
         print(f"Mean squared error: {mse}")
 
         mlflow.log_metric("mse", mse)
-        linear_regression_pyfunc = LinearRegressionModel()
-        linear_regression_pyfunc.load_context(None)
+        linear_regression_pyfunc = LinearRegressionModel(model)
         mlflow.pyfunc.log_model("linear_regression_model", python_model=linear_regression_pyfunc)
 
         run_id = mlflow.active_run().info.run_id
@@ -54,10 +78,8 @@ def train_model():
 
     registered_model = mlflow.register_model(artifact_uri, "WeatherPredictionModel")
 
-    from mlflow.tracking.client import MlflowClient
-
     client = MlflowClient()
-    model_version = client.create_model_version(name=registered_model.name, source=artifact_uri, run_id=run_id)
+    model_version = client.create_model_version(name=registered_model.name, source=artifact_uri, run_id=run_id) # a modifier pour choisir nom
 
     stage = "Staging"
     client.transition_model_version_stage(
