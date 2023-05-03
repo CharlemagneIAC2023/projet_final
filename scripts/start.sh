@@ -24,8 +24,8 @@ pip install requests
 echo ""
 pip install mlflow
 echo ""
-pip install fastapi uvicorn
-echo ""
+# pip install fastapi uvicorn
+# echo ""
 
 echo ""
 echo "-> airflow db init"
@@ -78,18 +78,32 @@ echo ""
 gnome-terminal -- bash -c "mlflow ui --backend-store-uri file:///home/charlemagne/mlflow_experiments; exec bash" # insérer nouveau chemin si nouvel utilisateur 
 sleep 10
 
+# echo ""
+# echo "-> lancement FastAPI"
+# echo ""
+
+# gnome-terminal -- bash -c "uvicorn app:app --reload --host 0.0.0.0 --port 8000 --log-level debug; exec bash"
+# sleep 10
+
+# echo ""
+# echo "-> execution app.py"
+# echo ""
+
+# python3 app.py
+
 echo ""
-echo "-> lancement FastAPI"
+echo "-> rapatriement du modèle"
 echo ""
 
-gnome-terminal -- bash -c "uvicorn app:app --reload --host 0.0.0.0 --port 8000 --log-level debug; exec bash"
-sleep 10
+cp -rfv /home/charlemagne/mlflow_experiments/686774497317680375/b47d9cbd35084959bbbc7696076996f4/artifacts/linear_regression_model ./models/
+
 
 echo ""
-echo "-> execution app.py"
+echo "-> déploiement api docker"
 echo ""
 
-python3 app.py
+cd projet_final/dev && docker build -t fastapi_app .
+docker run -p 8000:8000 fastapi_app
 
 echo ""
 echo "-> requête à l'API"

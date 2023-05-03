@@ -12,7 +12,7 @@ class PredictionInput(BaseModel):
     humidity: float
 
 
-model_uri = "/home/charlemagne/mlflow_experiments/686774497317680375/b47d9cbd35084959bbbc7696076996f4//artifacts/linear_regression_model" # insérer nouveau chemin si nouvel utilisateur 
+model_uri = "models/linear_regression_model"
 model = mlflow.pyfunc.load_model(model_uri)
 app = FastAPI()
 

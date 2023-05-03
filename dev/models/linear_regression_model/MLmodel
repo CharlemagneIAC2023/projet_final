@@ -1,0 +1,14 @@
+artifact_path: linear_regression_model
+flavors:
+  python_function:
+    cloudpickle_version: 2.2.1
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.pyfunc.model
+    python_model: python_model.pkl
+    python_version: 3.10.6
+mlflow_version: 2.3.1
+model_uuid: 9b5847acf43b4cd69798d8b0784cda69
+run_id: b47d9cbd35084959bbbc7696076996f4
+utc_time_created: '2023-05-03 10:50:04.408195'
