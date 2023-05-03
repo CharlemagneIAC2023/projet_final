@@ -78,19 +78,6 @@ echo ""
 gnome-terminal -- bash -c "mlflow ui --backend-store-uri file:///home/charlemagne/mlflow_experiments; exec bash" # insérer nouveau chemin si nouvel utilisateur 
 sleep 10
 
-# echo ""
-# echo "-> lancement FastAPI"
-# echo ""
-
-# gnome-terminal -- bash -c "uvicorn app:app --reload --host 0.0.0.0 --port 8000 --log-level debug; exec bash"
-# sleep 10
-
-# echo ""
-# echo "-> execution app.py"
-# echo ""
-
-# python3 app.py
-
 echo ""
 echo "-> rapatriement du modèle"
 echo ""
@@ -103,7 +90,15 @@ echo "-> déploiement api docker"
 echo ""
 
 cd projet_final/dev && docker build -t fastapi_app .
-docker run -p 8000:8000 fastapi_app
+docker login
+docker tag fastapi_app carolus174/fastapi_app
+docker push carolus174/fastapi_app
+scp -r carolus174/linear_regression_model ./models/
+docker pull carolus174/fastapi_app
+
+gnome-terminal -- bash -c "docker run -p 8000:8000 carolus174/fastapi_app; exec bash" 
+sleep 10
+
 
 echo ""
 echo "-> requête à l'API"
