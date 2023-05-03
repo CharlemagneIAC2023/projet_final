@@ -74,8 +74,7 @@ echo "-> lancement ui mlflow, cliquer sur le lien pour ouvrir l'interface"
 echo ""
 
 username=$USER
-gnome-terminal -- bash -c "mlflow ui --backend-store-uri file:///$username/charlemagne/mlflow_experiments; exec bash"  
-# gnome-terminal -- bash -c "mlflow ui --backend-store-uri file:///home/charlemagne/mlflow_experiments; exec bash"  
+gnome-terminal -- bash -c "mlflow ui --backend-store-uri file:///home/$username/mlflow_experiments; exec bash"  
 sleep 10
 
 echo ""
@@ -85,8 +84,6 @@ echo ""
 cd ../../../../mlflow_experiments/686774497317680375/ && last_directory=$(ls -td */ | head -n 1) 
 cd -
 cp -rfv ../../../../mlflow_experiments/686774497317680375/$last_directory/artifacts/linear_regression_model ./models/
-
-#cp -rfv /home/charlemagne/mlflow_experiments/686774497317680375/b47d9cbd35084959bbbc7696076996f4/artifacts/linear_regression_model ./models/
 
 
 echo ""
@@ -108,10 +105,11 @@ echo "-> requête à l'API"
 echo ""
 
 echo""
-echo"------------------------------------------"
+echo""
+echo""
 echo""
 curl -X POST "http://localhost:8000/predict" -H "Content-Type: application/json" -d '{"year": 2023, "month": 5, "day": 10, "humidity": 60}'
 echo""
 echo""
-echo"------------------------------------------"
+echo""
 echo""

@@ -19,8 +19,10 @@ echo ""
 
 cd ../ && virtualenv -p python3.10 carolus_ia_final
 
+echo""
 echo ""
 echo "-> activez l'environnement virtuel grâce à la commande suivante:"
 echo "source ../carolus_ia_final/bin/activate"
 echo "-> une fois fait, lancez le script start.sh"
 echo ""
+echo""
