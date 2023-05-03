@@ -24,8 +24,6 @@ pip install requests
 echo ""
 pip install mlflow
 echo ""
-# pip install fastapi uvicorn
-# echo ""
 
 echo ""
 echo "-> airflow db init"
@@ -75,14 +73,20 @@ echo ""
 echo "-> lancement ui mlflow, cliquer sur le lien pour ouvrir l'interface"
 echo ""
 
-gnome-terminal -- bash -c "mlflow ui --backend-store-uri file:///home/charlemagne/mlflow_experiments; exec bash" # insérer nouveau chemin si nouvel utilisateur 
+username=$USER
+gnome-terminal -- bash -c "mlflow ui --backend-store-uri file:///$username/charlemagne/mlflow_experiments; exec bash"  
+# gnome-terminal -- bash -c "mlflow ui --backend-store-uri file:///home/charlemagne/mlflow_experiments; exec bash"  
 sleep 10
 
 echo ""
 echo "-> rapatriement du modèle"
 echo ""
 
-cp -rfv /home/charlemagne/mlflow_experiments/686774497317680375/b47d9cbd35084959bbbc7696076996f4/artifacts/linear_regression_model ./models/
+cd ../../../../mlflow_experiments/686774497317680375/ && last_directory=$(ls -td */ | head -n 1) 
+cd -
+cp -rfv ../../../../mlflow_experiments/686774497317680375/$last_directory/artifacts/linear_regression_model ./models/
+
+#cp -rfv /home/charlemagne/mlflow_experiments/686774497317680375/b47d9cbd35084959bbbc7696076996f4/artifacts/linear_regression_model ./models/
 
 
 echo ""
@@ -99,10 +103,15 @@ docker pull carolus174/fastapi_app
 gnome-terminal -- bash -c "docker run -p 8000:8000 carolus174/fastapi_app; exec bash" 
 sleep 10
 
-
 echo ""
 echo "-> requête à l'API"
 echo ""
 
+echo""
+echo"------------------------------------------"
+echo""
 curl -X POST "http://localhost:8000/predict" -H "Content-Type: application/json" -d '{"year": 2023, "month": 5, "day": 10, "humidity": 60}'
+echo""
+echo""
+echo"------------------------------------------"
 echo""
