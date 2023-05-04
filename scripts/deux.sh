@@ -28,8 +28,7 @@ sleep 10
 cd dags/projet_final/dev && cp -rfv fetch_data_dag.py train_model.py ../../
 
 echo ""
-echo "-> activer et executer dag Airflow"
-echo ""
-echo "-> une fois fait, lancer le script trois.sh"
+echo "  activer et executer dag Airflow"
+echo "  une fois fait, lancer le script trois.sh"
 echo ""
 echo ""

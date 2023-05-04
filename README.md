@@ -21,13 +21,14 @@
 
 ## Actions à réaliser pour déployer un modèle, dockeriser l'API, créer un environnement virtuel et installer les dépendances:  
 ####
-* cloner le projet Git dans vos dags Airflow, le chemin devrait ressembler à ceci:   /home/nom/airflow/dags  
+* cloner le projet Git dans vos dags Airflow, le chemin devrait ressembler à ceci /home/nom/airflow/dags :
+* git clone https://github.com/CharlemagneIAC2023/projet_final.git
 
-* modifier les droits des fichiers situés dans /airflow/dags/projet_final/scripts:   chmod +x init.sh start.sh stop.sh  
+* modifier les droits des fichiers situés dans /airflow/dags/projet_final/scripts:   
+* chmod +x un.sh deux.sh trois.sh delete.sh  
 
-* lancer tout d'abord le script init.sh:   ./init.sh  
+* lancer tout d'abord le script un.sh, les consignes seront affichées au fur et à mesure:   
+* ./un.sh  
 
-* puis lancer le script start.sh une fois que le fichier init à terminé de s'exécuter:   ./start.sh  
-
-* pour supprimer les fichiers et dossiers générés par les deux scripts précédents et qui pourraient créer des conflits en cas de nouvelle initialisation:   ./stop.sh  
+* pour supprimer les fichiers et dossiers générés par les trois scripts précédents, et qui pourraient créer des conflits en cas de nouvelle initialisation:   ./delete.sh  
 

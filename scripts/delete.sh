@@ -11,3 +11,4 @@ rm -fv ../dev/weather_data.db
 
 rm -rfv models/
 rm -fv weather_data.db
+rm -rfv mlruns/

@@ -25,12 +25,8 @@ sleep 10
 
 echo ""
 echo ""
-echo ""
-echo ""
 curl -X POST "http://localhost:8000/predict" -H "Content-Type: application/json" -d '{"year": 2023, "month": 5, "day": 10, "humidity": 60}'
 curl -X POST "http://localhost:8000/predict" -H "Content-Type: application/json" -d '{"year": 2023, "month": 5, "day": 11, "humidity": 60}'
 curl -X POST "http://localhost:8000/predict" -H "Content-Type: application/json" -d '{"year": 2023, "month": 5, "day": 12, "humidity": 60}'
-echo ""
-echo ""
 echo ""
 echo ""
